@@ -3,8 +3,13 @@ import streamlit as st
 import requests
 import aiohttp
 import asyncio
+import os
+import gdown
 
-
+gdown.download("https://drive.google.com/file/d/1TJ_IKlmMvKV7Ha4xh8YcnOhg9LnTO5SN/view?usp=drive_linkK", "movies.pkl")
+if not os.path.exists("recommend.pkl"):
+    url = "https://drive.google.com/file/d/15Uwz5k2-pOM3a6Y3xk8KsZ8Elt4pTVMX/view?usp=drive_link"
+    gdown.download(url, "recommend.pkl", quiet=False)
 async def fetch_all_posters(movie_ids):
     async with aiohttp.ClientSession() as session:
         tasks = [fetch_single_poster(session, mid) for mid in movie_ids]
